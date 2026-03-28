@@ -16,11 +16,12 @@
   ];
 
   # -----------------------------
-  # Homebrew (Linuxbrew) installieren
+  # Install Homebrew (Linuxbrew)
   # -----------------------------
   home.activation.installHomebrew = config.lib.dag.entryAfter ["writeBoundary"] ''
     if [ ! -d "$HOME/.linuxbrew" ]; then
       echo "Installing Homebrew..."
+      echo "[DEBUG] PATH before curl: $PATH"
 
       NONINTERACTIVE=1 bash -c \
         "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -31,7 +32,7 @@
   '';
 
   # -----------------------------
-  # Neovim über Homebrew installieren
+  # Install Neovim with Homebrew 
   # -----------------------------
   home.activation.installNeovim = config.lib.dag.entryAfter ["installHomebrew"] ''
     if ! command -v brew >/dev/null 2>&1; then

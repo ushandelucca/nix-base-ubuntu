@@ -14,37 +14,38 @@ Intentionally minimal and quick to deploy (no NixOS required, runs directly on U
 Architecture:
 
 ```md
-    │
-    ├── flake.nix
-    ├── home.nix
-    ├── zsh
-    │   ├── .zshrc
-    │   └── .p10k.zsh
-    │
-    └── tmux
-        └── .tmux.conf
+root
+  │
+  ├── flake.nix
+  ├── home.nix
+  ├── zsh
+  │   ├── .zshrc
+  │   └── .p10k.zsh
+  │
+  └── tmux
+      └── .tmux.conf
 ```
 
 ## Installation
 
 ```bash
+# install git
+sudo apt update && sudo apt install -y git curl
+
+# clone this repo
+git clone https://github.com/ushandelucca/nix-base-ubuntu.git && cd nix-base-ubuntu
+
 # Install Nix
 sh <(curl -L https://nixos.org/nix/install) --daemon
 
 # log in again
 exit
 ssh peter@your-server-ip
+cd nix-base-ubuntu
 
 # enable flake support
 mkdir -p ~/.config/nix
 echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
-
-# install git
-sudo apt update && sudo apt install -y git
-
-# clone the repo
-git clone https://github.com/YOUR-USER/ubuntu-server-blueprint.git
-cd ubuntu-server-blueprint
 
 # install everything
 nix run home-manager -- switch --flake .#server

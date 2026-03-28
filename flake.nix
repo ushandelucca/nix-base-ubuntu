@@ -1,5 +1,5 @@
 {
-  description = "Ubuntu Cloud Server Blueprint";
+  description = "Ubuntu Blueprint";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
