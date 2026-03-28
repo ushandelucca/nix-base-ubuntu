@@ -16,36 +16,6 @@
   ];
 
   # -----------------------------
-  # Install Homebrew (Linuxbrew)
-  # -----------------------------
-  home.activation.installHomebrew = config.lib.dag.entryAfter ["writeBoundary"] ''
-    if [ ! -d "$HOME/.linuxbrew" ]; then
-      echo "Installing Homebrew..."
-      echo "[DEBUG] PATH before curl: $PATH"
-
-      NONINTERACTIVE=1 bash -c \
-        "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-      eval "$($HOME/.linuxbrew/bin/brew shellenv)"
-      echo 'eval "$($HOME/.linuxbrew/bin/brew shellenv)"' >> ~/.zshrc
-    fi
-  '';
-
-  # -----------------------------
-  # Install Neovim with Homebrew 
-  # -----------------------------
-  home.activation.installNeovim = config.lib.dag.entryAfter ["installHomebrew"] ''
-    if ! command -v brew >/dev/null 2>&1; then
-      eval "$($HOME/.linuxbrew/bin/brew shellenv)"
-    fi
-
-    if ! brew list neovim >/dev/null 2>&1; then
-      echo "Installing Neovim via Homebrew..."
-      brew install neovim
-    fi
-  '';
-
-  # -----------------------------
   # ZSH
   # -----------------------------
   programs.zsh = {
